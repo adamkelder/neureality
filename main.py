@@ -19,7 +19,7 @@ def func_profile(func, *args, **kwargs):
     return output, dt
 
 
-def print_profiles(profiles):
+def print_profiles(profiles, csv_path=None):
     op_names = [x[0] for x in profiles[0]]
     data = []
     for i, op_name in enumerate(op_names):  # assuming ops are always in the same order
@@ -33,7 +33,10 @@ def print_profiles(profiles):
         }
         data.append(stats)
     df = pd.DataFrame(data)
-    print(df)
+    if csv_path is None:
+        print(df)
+    else:
+        df.to_csv(csv_path, index=False)
 
 
 def draw_boxes(bgr, boxes):
